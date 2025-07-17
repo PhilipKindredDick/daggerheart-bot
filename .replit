@@ -2,8 +2,7 @@
 channel = "stable-23_05"
 
 [deployment]
-run = ["sh", "-c", "python api_simple.py"]
-deploymentTarget = "cloudrun"
+run = ["python", "main.py"]
 
 [[ports]]
 localPort = 8000
