@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daggerheart - Игра</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Заголовок -->
+        <header class="header">
+            <h1>🗡️ Daggerheart</h1>
+            <div class="user-info">
+                <span id="username">Загрузка...</span>
+            </div>
+        </header>
+
+        <!-- Основное содержимое -->
+        <main class="main-content">
+            <!-- Экран загрузки -->
+            <div id="loading-screen" class="screen active">
+                <div class="loading-spinner">⚡</div>
+                <p>Загрузка мира приключений...</p>
+            </div>
+
+            <!-- Главное меню -->
+            <div id="main-menu" class="screen">
+                <div class="menu-buttons">
+                    <button class="btn btn-primary" onclick="startNewGame()">
+                        🎲 Новая игра
+                    </button>
+                    <button class="btn btn-secondary" onclick="loadGame()">
+                        📜 Загрузить игру
+                    </button>
+                    <button class="btn btn-secondary" onclick="showCharacter()">
+                        👤 Персонаж
+                    </button>
+                    <button class="btn btn-secondary" onclick="showRules()">
+                        📖 Правила
+                    </button>
+                </div>
+            </div>
+
+            <!-- Создание персонажа -->
+            <div id="character-creation" class="screen">
+                <h2>Создание персонажа</h2>
+                <form id="character-form">
+                    <div class="form-group">
+                        <label for="character-name">Имя персонажа:</label>
+                        <input type="text" id="character-name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="character-class">Класс:</label>
+                        <select id="character-class" required>
+                            <option value="">Выберите класс</option>
+                            <option value="warrior">Воин</option>
+                            <option value="ranger">Рейнджер</option>
+                            <option value="guardian">Страж</option>
+                            <option value="seraph">Серафим</option>
+                            <option value="sorcerer">Чародей</option>
+                            <option value="wizard">Волшебник</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="character-ancestry">Происхождение:</label>
+                        <select id="character-ancestry" required>
+                            <option value="">Выберите происхождение</option>
+                            <option value="human">Человек</option>
+                            <option value="elf">Эльф</option>
+                            <option value="dwarf">Дварф</option>
+                            <option value="halfling">Полурослик</option>
+                            <option value="orc">Орк</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="showMainMenu()">
+                            Назад
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            Создать персонажа
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Игровой экран -->
+            <div id="game-screen" class="screen">
+                <div class="game-interface">
+                    <!-- Статус персонажа -->
+                    <div class="character-status">
+                        <div class="status-item">
+                            <span class="status-label">Hope:</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill hope" id="hope-bar"></div>
+                            </div>
+                            <span id="hope-value">5</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">Fear:</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill fear" id="fear-bar"></div>
+                            </div>
+                            <span id="fear-value">3</span>
+                        </div>
+                    </div>
+
+                    <!-- Область повествования -->
+                    <div class="story-area">
+                        <div id="story-text">
+                            <p>Добро пожаловать в мир Daggerheart! Ваше приключение вот-вот начнется...</p>
+                        </div>
+                    </div>
+
+                    <!-- Игровые действия -->
+                    <div class="game-actions">
+                        <button class="btn btn-action" onclick="rollDice()">
+                            🎲 Бросить кости
+                        </button>
+                        <button class="btn btn-action" onclick="useAbility()">
+                            ⚡ Использовать способность
+                        </button>
+                        <button class="btn btn-action" onclick="interact()">
+                            💬 Взаимодействовать
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Экран ошибки -->
+            <div id="error-screen" class="screen">
+                <h2>❌ Ошибка</h2>
+                <p id="error-message">Что-то пошло не так...</p>
+                <button class="btn btn-primary" onclick="location.reload()">
+                    🔄 Перезагрузить
+                </button>
+            </div>
+        </main>
+
+        <!-- Футер -->
+        <footer class="footer">
+            <p>Powered by DeepSeek AI</p>
+        </footer>
+    </div>
+
+    <script>
+        // Базовая проверка на случай если Telegram WebApp не загрузился
+        if (!window.Telegram) {
+            console.error('Telegram WebApp не загружен');
+            document.getElementById('error-screen').classList.add('active');
+            document.getElementById('loading-screen').classList.remove('active');
+            document.getElementById('error-message').textContent = 'Telegram WebApp не загружен';
+        }
+    </script>
+    <script src="./js/telegram.js"></script>
+    <script src="./js/app.js"></script>
+</body>
+</html>
