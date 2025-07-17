@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: daggerheart-api
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: ./start.sh
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        value: sqlite:///./daggerheart.db
+      - key: API_HOST
+        value: 0.0.0.0
